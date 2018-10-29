@@ -10,6 +10,7 @@ import tape.Tape;
 import transition.ComparableList;
 import transition.Transition;
 import transition.TransitionFunction;
+import turing.TuringMachine;
 import turing.transition.TMTransition;
 import turing.transition.TMTransitionFunction;
 import utils.Utils;
@@ -27,9 +28,11 @@ public class TMReader extends AbstractReader {
   private State initialState;
   private Symbol blankSymbol;
   private SetOfStates acceptingStates;
-  private TransitionFunction transitionFunction;
+  private TMTransitionFunction transitionFunction;
 
   private int numberOfTapes;
+
+  private TuringMachine turingMachine;
 
   public TMReader(FileReader file) {
     super(file);
@@ -37,6 +40,10 @@ public class TMReader extends AbstractReader {
 
   public TMReader(String definition) {
     super(definition);
+  }
+
+  public TuringMachine getReadedTM() {
+    return turingMachine;
   }
 
   @Override
@@ -104,6 +111,14 @@ public class TMReader extends AbstractReader {
       transitions.add(t);
     }
     transitionFunction = new TMTransitionFunction(transitions);
+
+    turingMachine = new TuringMachine(setOfStates,
+      inputAlphabet,
+      tapeAlphabet,
+      initialState,
+      blankSymbol,
+      acceptingStates,
+      transitionFunction);
   }
 
   @Override
