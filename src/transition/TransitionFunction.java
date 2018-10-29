@@ -78,7 +78,7 @@ public class TransitionFunction
    * @return next state of the function or {@code null}
    * if there is not next state.
    */
-  public Set<Transition> getNextState(Tuple currentState) {
+  public Set<? extends Transition> getNextState(Tuple currentState) {
     if (currentState == null)
       throw new NullPointerException("current state can not be null.");
 

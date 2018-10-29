@@ -12,7 +12,7 @@ import java.util.Set;
 
 /**
  * <h2>Turing machine transition function</h2>
- * 
+ *
  * This transition function is used
  * to change the internal state
  * of the Turing machine depending
@@ -92,11 +92,11 @@ public class TMTransitionFunction
    * @param readSymbols list of read symbols.
    * @return set of transition with this state.
    */
-  public Set<Transition> getNextState(State state,
+  public Set<TMTransition> getNextState(State state,
                                       ComparableList readSymbols) {
     Utils.checkIfNull(state, "state can not be null");
     Utils.checkIfNull(readSymbols, "read symbols can not be null");
 
-    return super.getNextState(new Pair<>(state, readSymbols));
+    return (Set<TMTransition>) super.getNextState(new Pair<>(state, readSymbols));
   }
 }

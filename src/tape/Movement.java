@@ -9,14 +9,15 @@ package tape;
  * @version 1.0.0
  */
 public enum Movement {
-  LEFT(-1),
-  RIGHT(1),
-  STOP(0);
+  LEFT(-1, "L"),
+  RIGHT(1, "R"),
+  STOP(0, "S");
 
   /**
    * Value of the movement.
    */
   public int value;
+  public String representation;
 
   /**
    * Private constructor
@@ -25,7 +26,16 @@ public enum Movement {
    * @param value that the element
    *              is going to have.
    */
-  private Movement(int value) {
+  private Movement(int value, String representation) {
     this.value = value;
+    this.representation = representation;
+  }
+
+  public static Movement of(String representation) {
+    for (Movement movement : Movement.values()) {
+      if (movement.representation.equals(representation))
+        return movement;
+    }
+    return null;
   }
 }

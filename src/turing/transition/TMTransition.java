@@ -37,8 +37,8 @@ public class TMTransition
    *                              is {@code null}.
    */
   public TMTransition(
-          Triplet<State, ComparableList<Symbol>, ComparableList<Movement>> currentState,
-          Pair<State, ComparableList<Symbol>> nextState) {
+          Pair<State, ComparableList<Symbol>> currentState,
+          Triplet<State, ComparableList<Symbol>, ComparableList<Movement>> nextState) {
     super(currentState, nextState);
   }
 
@@ -50,17 +50,17 @@ public class TMTransition
    *
    * @param currentState current state of the transition.
    * @param readSymbolsOnTapes symbols read on the several tapes.
-   * @param movements movements to be aplied on the several tapes.
    * @param nextState next state to transition.
    * @param writeSymbolsOnTapes symbols to be written on the tape.
+   * @param movements movements to be aplied on the several tapes.
    */
   public TMTransition(State currentState,
                       ComparableList<Symbol> readSymbolsOnTapes,
-                      ComparableList<Movement> movements,
                       State nextState,
-                      ComparableList<Symbol> writeSymbolsOnTapes) {
-    super(new Triplet<>(currentState, readSymbolsOnTapes, movements),
-            new Pair<>(nextState, writeSymbolsOnTapes));
+                      ComparableList<Symbol> writeSymbolsOnTapes,
+                      ComparableList<Movement> movements) {
+    super(new Pair<>(currentState, readSymbolsOnTapes),
+            new Triplet<>(nextState, writeSymbolsOnTapes, movements));
   }
 
   /**
@@ -69,12 +69,10 @@ public class TMTransition
    *
    * @param currentState current state of
    * @param readSymbolsOnTapes list of read symbols.
-   * @param movements list of movements to perform.
    */
   public void setCurrentState(State currentState,
-                              ComparableList<Symbol> readSymbolsOnTapes,
-                              ComparableList<Movement> movements) {
-    super.setCurrentState(new Triplet<>(currentState, readSymbolsOnTapes, movements));
+                              ComparableList<Symbol> readSymbolsOnTapes) {
+    super.setCurrentState(new Pair<>(currentState, readSymbolsOnTapes));
   }
 
   /**
@@ -83,10 +81,12 @@ public class TMTransition
    *
    * @param nextState of the transition
    * @param writeSymbolsOnTapes list of symbols to write.
+   * @param movements list of movements to perform.
    */
   public void setNextState(State nextState,
-                           ComparableList<Symbol> writeSymbolsOnTapes) {
-    super.setNextState(new Pair<>(nextState, writeSymbolsOnTapes));
+                           ComparableList<Symbol> writeSymbolsOnTapes,
+                           ComparableList<Movement> movements) {
+    super.setNextState(new Triplet<>(nextState, writeSymbolsOnTapes, movements));
   }
 
   /**
@@ -108,15 +108,6 @@ public class TMTransition
   }
 
   /**
-   * Return the movements to perform.
-   *
-   * @return movements to perform.
-   */
-  public ComparableList<Movement> getMovements() {
-    return (ComparableList<Movement>) getCurrentState().getValue(2);
-  }
-
-  /**
    * Return next state node.
    *
    * @return next state node.
@@ -131,5 +122,14 @@ public class TMTransition
    */
   public ComparableList<Symbol> getSymbolsToWrite() {
     return (ComparableList<Symbol>) getNextState().getValue(1);
+  }
+
+  /**
+   * Return the movements to perform.
+   *
+   * @return movements to perform.
+   */
+  public ComparableList<Movement> getMovements() {
+    return (ComparableList<Movement>) getNextState().getValue(2);
   }
 }

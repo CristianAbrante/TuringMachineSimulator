@@ -1,6 +1,7 @@
 package tape;
 
 import symbol.Symbol;
+import utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,6 +22,25 @@ import java.util.List;
  * @version 1.0.0
  */
 public class Tape {
+
+  /**
+   * Blank symbol represents the
+   * default element that the tape
+   * is going to contain.
+   */
+  public static Symbol BLANK_SYMBOL;
+
+  /**
+   * Sets the blank symbol
+   * to the specified symbol.
+   *
+   * @param symbol that is going to be
+   *               the blank symbol.
+   */
+  public static void setBlankSymbol(Symbol symbol) {
+    Utils.checkIfNull(symbol, "blank symbol can not be null.");
+    BLANK_SYMBOL = symbol;
+  }
 
   /**
    * List of symbols that constitute
@@ -128,13 +148,13 @@ public class Tape {
     } else {
       if (head < 0) {
         for (int i = head + 1; i < 0; i++) {
-          getSymbols().add(0, Symbol.EMPTY_SYMBOL);
+          getSymbols().add(0, Tape.BLANK_SYMBOL);
         }
         getSymbols().add(0, symbol);
         head = 0;
       } else {
         for (int i = size(); i < head; i++) {
-          getSymbols().add(Symbol.EMPTY_SYMBOL);
+          getSymbols().add(Tape.BLANK_SYMBOL);
         }
         getSymbols().add(symbol);
       }
@@ -283,7 +303,7 @@ public class Tape {
     if (isInBounds(i)) {
       return getSymbols().get(i);
     } else {
-      return Symbol.EMPTY_SYMBOL;
+      return Tape.BLANK_SYMBOL;
     }
   }
 }
