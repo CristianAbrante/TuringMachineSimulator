@@ -42,7 +42,7 @@ public class TMReader extends AbstractReader {
     super(definition);
   }
 
-  public TuringMachine getReadedTM() {
+  public TuringMachine getReadTM() {
     return turingMachine;
   }
 
@@ -136,7 +136,7 @@ public class TMReader extends AbstractReader {
 
     // Second element is the list of read symbols.
     ComparableList<Symbol> readSymbols = new ComparableList<>();
-    for (int i = 1; i < numberOfTapes + 1; ++i) {
+    for (int i = 1; i <= numberOfTapes; ++i) {
       Symbol s = inputAlphabet.getByValue(tokenizedString.get(i));
       Utils.checkIfNull(s, "symbol not belongs to input alphabet.");
       readSymbols.add(s);
@@ -147,15 +147,15 @@ public class TMReader extends AbstractReader {
 
     // Fourth are the symbols to write on the tape.
     ComparableList<Symbol> toWriteSymbols = new ComparableList<>();
-    for (int i = numberOfTapes + 2; i < 2 * numberOfTapes; ++i) {
+    for (int i = numberOfTapes + 2; i <= 2 * numberOfTapes + 1; ++i) {
       Symbol s = tapeAlphabet.getByValue(tokenizedString.get(i));
       Utils.checkIfNull(s, "symbol not belongs to tape alphabet.");
-      readSymbols.add(s);
+      toWriteSymbols.add(s);
     }
 
     // Fifth are the movements to perform
     ComparableList<Movement> movements = new ComparableList<>();
-    for (int i = numberOfTapes; i < 2 * numberOfTapes; ++i) {
+    for (int i = 2 * numberOfTapes + 2; i < tokenizedString.size(); ++i) {
       Movement m = Movement.of(tokenizedString.get(i));
       Utils.checkIfNull(m, "not valid movement.");
       movements.add(m);

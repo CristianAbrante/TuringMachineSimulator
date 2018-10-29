@@ -26,6 +26,7 @@ public class TuringMachine {
                        TMTransitionFunction transitionFunction) {
     setSetOfStates(setOfStates);
     setInputAlphabet(inputAlphabet);
+    setTapeAlphabet(tapeAlphabet);
     setInitialState(initialState);
     setBlankSymbol(blankSymbol);
     setAcceptingStates(acceptingStates);

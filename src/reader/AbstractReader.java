@@ -155,7 +155,9 @@ public abstract class AbstractReader {
     List<String> tokenizedString = tokenizeString(symbolsString);
     List<Symbol> symbols = new ArrayList<>();
     for (String token : tokenizedString) {
-      symbols.add(new Symbol(token));
+      symbols.add(token.equals(Symbol.EMPTY_SYMBOL_VALUE) ?
+        Symbol.EMPTY_SYMBOL :
+        new Symbol(token));
     }
     return symbols;
   }

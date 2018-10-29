@@ -85,18 +85,6 @@ public class TransitionFunctionTest {
   }
 
   @Test
-  public void nextStateTest() {
-    TransitionFunction test1function = new TransitionFunction(test1Transitions);
-    for (Transition transition : test1Transitions) {
-      assertTrue(test1function.hasNextState(transition.getCurrentState()));
-      Set<Transition> next = test1function.getNextState(transition.getCurrentState());
-      for (Transition t : next) {
-        assertEquals(t.getNextState(), transition.getNextState());
-      }
-    }
-  }
-
-  @Test
   public void addSameTransitionMultipleTimesTest() {
     TransitionFunction test1function = new TransitionFunction(test1Transitions);
 
