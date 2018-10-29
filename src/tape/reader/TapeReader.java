@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class TapeReader
         extends AbstractReader {
-  List<Tape> readTapes;
+  private List<Tape> readTapes;
 
   public TapeReader(FileReader file) {
     super(file);

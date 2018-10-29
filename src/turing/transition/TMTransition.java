@@ -9,7 +9,7 @@ import transition.ComparableList;
 import transition.Transition;
 
 /**
- * <h2>MultitapeTMTransition</h2>
+ * <h2>TMTransition</h2>
  *
  * This class is used to represent
  * a multitape transition of a
@@ -21,7 +21,7 @@ import transition.Transition;
  * @author Cristian Abrante
  * @version 1.0.0
  */
-public class MultitapeTMTransition
+public class TMTransition
         extends Transition {
 
   /**
@@ -36,7 +36,7 @@ public class MultitapeTMTransition
    * @throws NullPointerException if currentState or nextState
    *                              is {@code null}.
    */
-  public MultitapeTMTransition(
+  public TMTransition(
           Triplet<State, ComparableList<Symbol>, ComparableList<Movement>> currentState,
           Pair<State, ComparableList<Symbol>> nextState) {
     super(currentState, nextState);
@@ -54,11 +54,11 @@ public class MultitapeTMTransition
    * @param nextState next state to transition.
    * @param writeSymbolsOnTapes symbols to be written on the tape.
    */
-  public  MultitapeTMTransition(State currentState,
-                                ComparableList<Symbol> readSymbolsOnTapes,
-                                ComparableList<Movement> movements,
-                                State nextState,
-                                ComparableList<Symbol> writeSymbolsOnTapes) {
+  public TMTransition(State currentState,
+                      ComparableList<Symbol> readSymbolsOnTapes,
+                      ComparableList<Movement> movements,
+                      State nextState,
+                      ComparableList<Symbol> writeSymbolsOnTapes) {
     super(new Triplet<>(currentState, readSymbolsOnTapes, movements),
             new Pair<>(nextState, writeSymbolsOnTapes));
   }

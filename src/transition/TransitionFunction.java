@@ -53,7 +53,7 @@ public class TransitionFunction
    * @param transitions collection of transitions
    *                    to add.
    */
-  public TransitionFunction(Collection<Transition> transitions) {
+  public TransitionFunction(Collection<? extends Transition> transitions) {
     super(transitions);
   }
 
