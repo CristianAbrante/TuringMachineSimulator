@@ -42,6 +42,16 @@ public class Tape {
     BLANK_SYMBOL = symbol;
   }
 
+  public static boolean allTapesAreReset(List<Tape> tapes) {
+    Utils.checkIfNull(tapes, "tapes can not be null.");
+    for (Tape tape : tapes) {
+      Utils.checkIfNull(tape, "tape is null");
+      if (!tape.isReset())
+        return false;
+    }
+    return true;
+  }
+
   /**
    * List of symbols that constitute
    * the tape.
