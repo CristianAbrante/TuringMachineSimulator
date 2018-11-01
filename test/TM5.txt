@@ -1,0 +1,21 @@
+# Turing Machine
+# test 5
+# L={a^ib^ic^i/i>=0}
+q0p q0 q1 q2 q3
+a b c
+a b c .
+
+q0p
+.
+
+q3
+
+2
+q0p a . q0 a a R R
+q0p . . q3 . . S S
+q0 a . q0 a a R R
+q0 b . q1 b . S L
+q1 b a q1 b a R L
+q1 c . q2 c . S R
+q2 c a q2 c a R R
+q2 . . q3 . . S S

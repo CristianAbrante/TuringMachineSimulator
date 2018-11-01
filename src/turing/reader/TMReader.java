@@ -9,13 +9,11 @@ import tape.Movement;
 import tape.Tape;
 import transition.ComparableList;
 import transition.Transition;
-import transition.TransitionFunction;
 import turing.TuringMachine;
 import turing.transition.TMTransition;
 import turing.transition.TMTransitionFunction;
 import utils.Utils;
 
-import javax.rmi.CORBA.Util;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
