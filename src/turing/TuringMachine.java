@@ -8,7 +8,6 @@ import symbol.Symbol;
 import tape.Movement;
 import tape.Tape;
 import transition.ComparableList;
-import transition.Transition;
 import turing.evaluation.EvaluationStack;
 import turing.transition.TMTransition;
 import turing.transition.TMTransitionFunction;
@@ -145,6 +144,17 @@ public class TuringMachine {
       }
     }
     System.out.println(FlipTable.of(headers, data));
+  }
+
+  @Override
+  public String toString() {
+    return  "Q = " + getSetOfStates() + "\n" +
+            "Σ = " + getInputAlphabet() + "\n" +
+            "τ = " + getTapeAlphabet() + "\n" +
+            "q0 = " + getInitialState() + "\n" +
+            "b = " + getBlankSymbol() + "\n" +
+            "F = " + getAcceptingStates() + "\n" +
+            "δ : \n" + getTransitionFunction();
   }
 
   private boolean evaluateAllTransitions(Set<TMTransition> transitions) {
