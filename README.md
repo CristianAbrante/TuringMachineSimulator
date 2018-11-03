@@ -82,7 +82,7 @@ q1 a1 a2 ... an q2 b1 b2 ... bn m1 m2 ... mn
 For executing the program you should do
 
 ```
-    Usage: TuringMachine.jar [options]
+    Usage: TuringMachineSimulator.jar [options]
       Options:
       * -d, --description
           file name containing Turing machine description
@@ -112,7 +112,7 @@ b1 b2 ...
 This is an example of an execution:
 
 ```
-TuringMachine.jar --description test/TM1.txt -t test/tapes/TM1Tape1.txt -v
+TuringMachineSimulator.jar --description test/TM1.txt -t test/tapes/TM1Tape1.txt -v
 ```
 
 ```

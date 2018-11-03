@@ -22,7 +22,7 @@ public class Main {
 
     if (args.help) {
       JCommander jc = new JCommander(args);
-      jc.setProgramName("TuringMachine.jar");
+      jc.setProgramName("TuringMachineSimulator.jar");
       jc.usage();
       return;
     }
