@@ -1,6 +1,5 @@
-# Pushdown Automaton Simulator
-This is a simple simulator of a pushdown automaton, 
-built in java programming language.
+# Turing Machine Simulator
+This is a Turing Machine simulator built on Java programming language.
 
 This is a project for the subject **Computational Complexity** 
 of the Computer Engeneering degree 
@@ -32,45 +31,25 @@ This classification is called **Chomsky Hierarchy**.
 As we can see it exist a classification depending on the expressivity
 power of each automaton. Therefore, each language and automaton has 
 its own properties and definitions. In this programme we are simulating 
-a **Pushdown Automaton**, which is used to recognize strings 
-belonging to context free languages.
+a **Turing Machine**, which is used to recognize strings 
+belonging to recursively enumerable languages.
 
-## Definition of a pushdown automaton
-As we say before, pushdown automaton is a special kind of automaton
-that employs a stack for working.
-
-### Informal description
-The pushdown automaton is very similar to a finite state machine,
-but with an important difference: the use of an stack.
-
-The processing of the string of a pushdown automaton goes like
-this:
-
-1. Reads the current symbol of the input string or tape.
-2. Depending on the read symbol, the top symbol of the stack
-and the current state where the automaton is placed it takes
-a decision of which state is going to go.
-3. This process is executing until all the string has been 
-explored or where the stack is empty.
-
-It is important to say that this automaton is nondeterministic,
-so many transitions should be explored for the same combination
-of states and symbols.
+## Definition of a Turing Machine
 
 ### Formal description
 
-Formally the pushdown automaton is defined as a *7-tuple* 
+Formally the Turing Machine is defined as a *7-tuple* 
 of elements: 
 
-consist on this elements: ![automaton tuple](report/images/tuple.svg)
+consist on this elements: ![turing tuple](report/images/turing.svg)
 
-* ![Q](report/images/Q.svg) : finite set of states of the automaton.
-* ![Sigma](report/images/sigma.svg) : alphabet of the input tape, 
+* ![Q](report/images/Q.svg) : finite set of states of the Turing machine.
+* ![Sigma](report/images/sigma.svg) : alphabet of the turing machine, 
 which is a finite set of symbols.
-* ![tau](report/images/tau.svg) : alphabet of the stack, 
+* ![tau](report/images/tau.svg) : alphabet of the input tape, 
 which is a finite set of symbols.
-* ![q0](report/images/q0.svg) : initial state of the automaton.
-* ![Z](report/images/Z.svg) : initial symbol of the alphabet.
+* ![q0](report/images/q0.svg) : initial state of the Turing machine.
+* ![b](report/images/b.svg) : blank symbol of the tape.
 * ![F](report/images/F.svg) : finite set of accepting states.
 * ![delta](report/images/delta.svg) : Transition function of the automaton.
 
@@ -78,51 +57,99 @@ which is a finite set of symbols.
 
 
 ## Usage
+### File Format
+The file format of the description of the Turing machine
+is like this:
+```
+# this line is a comment
+# blank spaces are allowed.
+
+q1 q2 q3 ... # Q set
+a1 a2 a3 ... # Σ set
+A1 A2 A3 ... # Γ set
+q1           # initial state
+b            # blank symbol
+q2 q3        # F set
+n            # number of tapes that the Turing Machine accepts.
+
+q1 a1 a2 ... an q2 b1 b2 ... bn m1 m2 ... mn
+
+# transition function: ​ δ (q1, <a1, a2.., an>) = (q2, <b1, b2, ..., bn>, <m1, m2, ..., mn>)
+
+```
+
+### Execution
 For executing the program you should do
 
 ```
-    java -jar PushdownAutomaton.jar [log] AutomatonDefinition.txt TapeDefinition.txt
+    Usage: TuringMachine.jar [options]
+      Options:
+      * -d, --description
+          file name containing Turing machine description
+        -h, --help
+          help description
+        -t, --tapes
+          file name containing the tapes description.
+        -v, --verbose
+          trace mode, with specified tape.
+          Default: false
 ```
 
- Where parameters mean:
+### Input tape
+The tape should have the symbols separated by spaces. 
+And each line represents a different tape.
 
- * log : If this option is included is going to show a trace mode.
- * AutomatonDefinition.txt : Definition of the automaton of acceptance states.
- * tapeDefinition.txt : Optional definition of the tape.
+For representing the empty tape is needed a `.`.
 
+```
+a1 a2 ...
+b1 b2 ...
+.           # Empty tape
+```
 
-## Tape
-The tape (input string) should have the symbols separated by spaces.
 
 ## Example use
 This is an example of an execution:
 
 ```
-Q = {p, q, r}
-Σ = {a, b}
-τ = {A, S}
-s = p
-z = S
-F = {r}
-δ :
-(p, a, S) → (p, [A])
-(p, b, A) → (q, [ε])
-(p, a, A) → (p, [A, A])
-(q, b, A) → (q, [ε])
+TuringMachine.jar --description test/TM1.txt -t test/tapes/TM1Tape1.txt -v
+```
 
-Enter the tape input >
-a a b b
------------------------------------------------------------------------------
-| used transition           | state | word (ω)  | stack           | transitions
------------------------------------------------------------------------------
-| -                         | p     | a a b b $ | [S]             | (p, a, S) → (p, [A])
-| (p, a, S) → (p, [A])      | p     | a b b $   | [A]             | (p, a, A) → (p, [A, A])
-| (p, a, A) → (p, [A, A])   | p     | b b $     | [A, A]          | (p, b, A) → (q, [ε])
-| (p, b, A) → (q, [ε])      | q     | b $       | [A]             | (q, b, A) → (q, [ε])
-| (p, a, S) → (p, [A])      | q     | $         | []              | ω ∈ L
+```
+╔════════════════════════════════╤═══════╤═════════════╤════════════════════════════════╗
+║ used transition                │ state │ tapes       │ transitions                    ║
+╠════════════════════════════════╪═══════╪═════════════╪════════════════════════════════╣
+║ -                              │ q0    │ x x y y z $ │ (q0, [x]) → (q0, [x], [RIGHT]) ║
+╟────────────────────────────────┼───────┼─────────────┼────────────────────────────────╢
+║ (q0, [x]) → (q0, [x], [RIGHT]) │ q0    │ x y y z $   │ (q0, [x]) → (q0, [x], [RIGHT]) ║
+╟────────────────────────────────┼───────┼─────────────┼────────────────────────────────╢
+║ (q0, [x]) → (q0, [x], [RIGHT]) │ q0    │ y y z $     │ (q0, [y]) → (q0, [y], [RIGHT]) ║
+╟────────────────────────────────┼───────┼─────────────┼────────────────────────────────╢
+║ (q0, [y]) → (q0, [y], [RIGHT]) │ q0    │ y z $       │ (q0, [y]) → (q0, [y], [RIGHT]) ║
+╟────────────────────────────────┼───────┼─────────────┼────────────────────────────────╢
+║ (q0, [y]) → (q0, [y], [RIGHT]) │ q0    │ z $         │ (q0, [z]) → (q1, [z], [RIGHT]) ║
+╟────────────────────────────────┼───────┼─────────────┼────────────────────────────────╢
+║ (q0, [z]) → (q1, [z], [RIGHT]) │ q1    │ $           │ ω ∈ L                          ║
+╚════════════════════════════════╧═══════╧═════════════╧════════════════════════════════╝
 
-String a a b b $ belongs to the language generated by the automaton.
+Turing machine definition:
+Q = {q0, q1}
+Σ = {x, y, z}
+τ = {x, y, z, ε}
+q0 = q0
+b = ε
+F = {q1}
+δ : 
+(q0, [x]) → (q0, [x], [RIGHT])
+(q0, [y]) → (q0, [y], [RIGHT])
+(q0, [z]) → (q1, [z], [RIGHT])
 
+Turing machine evaluation determine that tapes belong to the language.
+
+tapes:
+$
+
+Done by: Cristian Abrante
 ```
 
 ## Author

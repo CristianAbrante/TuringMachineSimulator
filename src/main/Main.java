@@ -20,6 +20,13 @@ public class Main {
       .build()
       .parse(argv);
 
+    if (args.help) {
+      JCommander jc = new JCommander(args);
+      jc.setProgramName("TuringMachine.jar");
+      jc.usage();
+      return;
+    }
+
     TMReader reader = new TMReader(new FileReader(args.descriptionFile));
     TuringMachine turingMachine = reader.getReadTM();
 
@@ -49,12 +56,6 @@ public class Main {
     System.out.println("tapes:");
     for (Tape tape : tapes) {
       System.out.println(tape.toString());
-    }
-
-    if (args.help) {
-      JCommander jc = new JCommander(args);
-      jc.setProgramName("TuringMachine.jar");
-      jc.usage();
     }
 
     System.out.println();
