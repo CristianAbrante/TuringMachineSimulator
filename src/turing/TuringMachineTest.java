@@ -30,6 +30,8 @@ public class TuringMachineTest {
   TuringMachine TM4;
   TuringMachine TM5;
   TuringMachine TM6;
+  TuringMachine TM7;
+  TuringMachine TM8;
 
   @Before
   public void SetUp() throws FileNotFoundException {
@@ -52,6 +54,12 @@ public class TuringMachineTest {
 
     reader = new TMReader(new FileReader("test/TM6.txt"));
     TM6 = reader.getReadTM();
+
+    reader = new TMReader(new FileReader("test/TMTest1.txt"));
+    TM7 = reader.getReadTM();
+
+    reader = new TMReader(new FileReader("test/TMTest2.txt"));
+    TM8 = reader.getReadTM();
   }
 
   @Test
@@ -122,5 +130,57 @@ public class TuringMachineTest {
     tapes = tapeReader.getReadTapes();
     assertTrue(TM6.evaluate(tapes));
     TM6.printLastExecutionTrace();
+  }
+
+  @Test
+  public void TM7Test() {
+    tapeReader.setDefinition("a b a b");
+    tapes = tapeReader.getReadTapes();
+    assertTrue(TM7.evaluate(tapes));
+    TM7.printLastExecutionTrace();
+
+    tapeReader.setDefinition("a a b a b b b c a b");
+    tapes = tapeReader.getReadTapes();
+    assertFalse(TM7.evaluate(tapes));
+    TM7.printLastExecutionTrace();
+
+    tapeReader.setDefinition("");
+    tapes = tapeReader.getReadTapes();
+    assertFalse(TM7.evaluate(tapes));
+    TM7.printLastExecutionTrace();
+
+    tapeReader.setDefinition("a a a a b c c c a b a b a b b b");
+    tapes = tapeReader.getReadTapes();
+    assertTrue(TM7.evaluate(tapes));
+    TM7.printLastExecutionTrace();
+  }
+
+
+  @Test
+  public void TM8Test() {
+    tapeReader.setDefinition("0 1");
+    tapes = tapeReader.getReadTapes();
+    assertTrue(TM8.evaluate(tapes));
+    TM8.printLastExecutionTrace();
+
+    tapeReader.setDefinition("0 1 0 0 1");
+    tapes = tapeReader.getReadTapes();
+    assertTrue(TM8.evaluate(tapes));
+    TM8.printLastExecutionTrace();
+
+    tapeReader.setDefinition("1 1 0 0 1");
+    tapes = tapeReader.getReadTapes();
+    assertTrue(TM8.evaluate(tapes));
+    TM8.printLastExecutionTrace();
+
+    tapeReader.setDefinition("0 0 0");
+    tapes = tapeReader.getReadTapes();
+    assertTrue(TM8.evaluate(tapes));
+    TM8.printLastExecutionTrace();
+
+    tapeReader.setDefinition("1 1 1");
+    tapes = tapeReader.getReadTapes();
+    assertTrue(TM8.evaluate(tapes));
+    TM8.printLastExecutionTrace();
   }
 }

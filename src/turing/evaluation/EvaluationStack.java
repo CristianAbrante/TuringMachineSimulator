@@ -18,7 +18,6 @@ public class EvaluationStack
         extends Stack<Pair<State, List<Tape>>> {
 
   public void push(State state, List<Tape> tapes) {
-    // TODO: check if it is actually a copy.
     List<Tape> copyTapes = new ArrayList<>();
     for (Tape tape : tapes)
       copyTapes.add(new Tape(tape));
