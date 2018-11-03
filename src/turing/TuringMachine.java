@@ -18,8 +18,29 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * <h2>Turing Machine</h2>
+ *
+ * Turing Machine is a formal
+ * computation machine, that
+ * has a superior computation
+ * power.
+ *
+ * Is able to recognize recursively
+ * enumerable languages.
+ *
+ * This class is a simulator.
+ *
+ * @author	Cristian Abrante
+ * @version 1.0.0
+ */
 public class TuringMachine {
 
+  /**
+   * Variables used to store
+   * the elements of the Turing
+   * Machine.
+   */
   private SetOfStates setOfStates;
   private Alphabet inputAlphabet;
   private Alphabet tapeAlphabet;
@@ -28,12 +49,30 @@ public class TuringMachine {
   private SetOfStates acceptingStates;
   private TMTransitionFunction transitionFunction;
 
+  /**
+   * Variables used to store the elements
+   * for a evaluation.
+   */
   private State currentEvaluationState;
   private List<Tape> currentEvaluationTapes;
 
   private EvaluationStack evaluationStack;
   private List<List<String>> trace;
 
+  /**
+   * Constructor of the class.
+   *
+   * It takes the formal elements
+   * of a Turing Machine.
+   *
+   * @param setOfStates
+   * @param inputAlphabet
+   * @param tapeAlphabet
+   * @param initialState
+   * @param blankSymbol
+   * @param acceptingStates
+   * @param transitionFunction
+   */
   public TuringMachine(SetOfStates setOfStates,
                        Alphabet inputAlphabet,
                        Alphabet tapeAlphabet,
@@ -50,69 +89,134 @@ public class TuringMachine {
     setTransitionFunction(transitionFunction);
   }
 
+  /**
+   * Getter of the set of states.
+   *
+   * @return set of states.
+   */
   public SetOfStates getSetOfStates() {
     return setOfStates;
   }
 
+  /**
+   * Setter of the set of states.
+   */
   public void setSetOfStates(SetOfStates setOfStates) {
     Utils.checkIfNull(setOfStates, "set of states can not be null.");
     this.setOfStates = setOfStates;
   }
 
+  /**
+   * Getter of the set of input alphabet.
+   *
+   * @return input alphabet.
+   */
   public Alphabet getInputAlphabet() {
     return inputAlphabet;
   }
 
+  /**
+   * Setter of input alphabet
+   */
   public void setInputAlphabet(Alphabet inputAlphabet) {
     Utils.checkIfNull(setOfStates, "input alphabet can not be null.");
     this.inputAlphabet = inputAlphabet;
   }
 
+  /**
+   * Getter of the tape alphabet.
+   *
+   * @return tape alphabet.
+   */
   public Alphabet getTapeAlphabet() {
     return tapeAlphabet;
   }
 
+  /**
+   * setter of the tape alphabet.
+   *
+   * @param tapeAlphabet we want to set.
+   */
   public void setTapeAlphabet(Alphabet tapeAlphabet) {
     Utils.checkIfNull(tapeAlphabet, "tape alphabet can not be null.");
     this.tapeAlphabet = tapeAlphabet;
   }
 
+  /**
+   * Getter of the initial state.
+   * @return initial state.
+   */
   public State getInitialState() {
     return initialState;
   }
 
+  /**
+   * Setter of the initial state.
+   *
+   * @param initialState we want to set.
+   */
   public void setInitialState(State initialState) {
     Utils.checkIfNull(initialState, "initial state can not be null.");
     this.initialState = initialState;
   }
 
+  /**
+   * gets the blank symbol
+   * @return blank symbol
+   */
   public Symbol getBlankSymbol() {
     return blankSymbol;
   }
 
+  /**
+   * sets blank symbol.
+   * @param blankSymbol we want to set.
+   */
   public void setBlankSymbol(Symbol blankSymbol) {
     Utils.checkIfNull(blankSymbol, "blank symbol can not be null.");
     this.blankSymbol = blankSymbol;
   }
 
+  /**
+   * gets accepting states.
+   * @return accepting states.
+   */
   public SetOfStates getAcceptingStates() {
     return acceptingStates;
   }
 
+  /**
+   * sets accepting states.
+   * @param acceptingStates we want to set.
+   */
   public void setAcceptingStates(SetOfStates acceptingStates) {
     Utils.checkIfNull(acceptingStates, "accepting states can not be null.");
     this.acceptingStates = acceptingStates;
   }
 
+  /**
+   * gets transition function.
+   * @return transition fuction.
+   */
   public TMTransitionFunction getTransitionFunction() {
     return transitionFunction;
   }
 
+  /**
+   * sets transition function.
+   * @param transitionFunction we want to set.
+   */
   public void setTransitionFunction(TMTransitionFunction transitionFunction) {
     Utils.checkIfNull(transitionFunction, "transition function can not be null.");
     this.transitionFunction = transitionFunction;
   }
 
+  /**
+   * Evaluates the list of tapes.
+   * @param tapes we want to evaluate.
+   * @return {@code true} if tapes belong
+   *          to language.
+   */
   public boolean evaluate(List<Tape> tapes) {
     Utils.checkIfNull(tapes, "evaluate tape can not be null.");
     if (!Tape.allTapesAreReset(tapes)) {
@@ -135,6 +239,10 @@ public class TuringMachine {
     return evaluateAllTransitions(nextTransitions);
   }
 
+  /**
+   * Prints the last execution table in a table
+   * format.
+   */
   public void printLastExecutionTrace() {
     String[] headers = {"used transition", "state", "tapes", "transitions"};
     String[][] data = new String[trace.size()][headers.length];
@@ -146,6 +254,11 @@ public class TuringMachine {
     System.out.println(FlipTable.of(headers, data));
   }
 
+  /**
+   * To string method.
+   * @return string representation of the
+   * Turing machine.
+   */
   @Override
   public String toString() {
     return  "Q = " + getSetOfStates() + "\n" +
